@@ -22,7 +22,6 @@ class Solution(object):
             arr.append(node.val)
             root = node.right
 
-
     def inorderTraversalRecursive(self, root):
       res = []
       self.inorderTraversalHelper(root,res)
@@ -34,6 +33,20 @@ class Solution(object):
           self.inorderTraversalHelper(root.left, res)
           res.append(root.val)
           self.inorderTraversalHelper(root.right, res)
+
+    def inorderTraversalUsingFlag(self, root):
+      res = []
+      stack = [(root, False)]
+      while stack:
+        node, visited = stack.pop()
+        if node:
+          if visited:
+            res.append(node.val)
+          else:
+            stack.append((node.right, False))
+            stack.append((node, True))
+            stack.append((node.left, False))
+      return res
 
     def preorderTraversal(self, root):
         """
@@ -63,6 +76,20 @@ class Solution(object):
           res.append(root.val)
           self.preorderTraversalHelper(root.left, res)
           self.preorderTraversalHelper(root.right, res)
+
+    def preorderTraversalUsingFlag(self, root):
+      res = []
+      stack =[(root, False)]
+      while stack:
+        node, visited = stack.pop()
+        if node:
+          if visited:
+            res.append(node.val)
+          else:
+            stack.append((node.right, False))
+            stack.append((node.left, False))
+            stack.append((node, True))
+        return res
 
     def postorderTraversal(self, root):
         """
@@ -96,3 +123,20 @@ class Solution(object):
           self.postorderTraversalHelper(root.left, res)
           self.postorderTraversalHelper(root.right, res)
           res.append(root.val)
+
+    def postorderTraversalUsingFlag(self, root):
+      res = []
+      stack = [(root, False)]
+      while stack:
+        node, visited = stack.pop()
+        if node:
+          if visited:
+            res.append(node.val)
+          else:
+            stack.append((node, True))
+            stack.append((node.right, False))
+            stack.append((node.left, False))
+      return res
+
+    def levelorderTraversal(self, root):
+       return
