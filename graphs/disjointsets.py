@@ -48,3 +48,46 @@ set2.connect(0,4)
 set2.connect(3,5)
 print(set2.isConnected(2,4))
 print(set2.isConnected(3,0))
+
+class WeightedQuickUnionDS(object):
+    def __init__(self, n):
+        self.parent = [-1 for i in range(n)]
+        self.sizes = [1 for i in range(n)]
+
+    def find(self, p):
+        r = p
+        while self.parent[r] >= 0:
+            r = self.parent[r]
+        return r
+
+    def isConnected(self, p, q):
+        return self.find(p) == self.find(q)
+
+    def connect(self, p, q):
+        i = self.find(p)
+        j = self.find(q)
+        
+        iSize = self.sizes[i]
+        jSize = self.sizes[j]
+
+        if iSize == jSize:
+            self.parent[i] = j
+            self.sizes[i] += 1
+
+        if iSize > jSize:
+            self.parent[j] = i
+
+        if jSize > iSize:
+            self.parent[i] = j
+
+set3 = WeightedQuickUnionDS(6)
+set3.connect(0,1)
+set3.connect(1,2)
+set3.connect(0,4)
+set3.connect(3,5)
+print(set3.isConnected(2,4))
+print(set3.isConnected(3,0))
+
+
+
+
