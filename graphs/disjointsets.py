@@ -23,10 +23,9 @@ print(set.isConnected(3,0))
 
 class QuickUnionDS(object):
   def __init__(self, n):
-    self.parent = []
-    for i in range(n):
-      self.parent[i] = -1
-  
+    self.parent = [-1 for i in range(n)]
+
+ 	 
   def find(self, p):
     r = p
     while self.parent[r] >= 0:
@@ -36,5 +35,16 @@ class QuickUnionDS(object):
   def isConnected(self, p, q):
     return self.find(p) == self.find(q)
 
+  def connect(self, p, q):
+    i = self.find(p)
+    j = self.find(q)
+    self.parent[i] = j
 
-## don't use value of -1 for weighted
+      
+set2 = QuickUnionDS(6)
+set2.connect(0,1)
+set2.connect(1,2)
+set2.connect(0,4)
+set2.connect(3,5)
+print(set2.isConnected(2,4))
+print(set2.isConnected(3,0))
